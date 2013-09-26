@@ -1,0 +1,58 @@
+*  UploadImageHelper Tutorial
+** Helper result status
+   We have three kind of results of function UploadImageUtil.saveProductPic(File pic, String localImagePath)
+   they are:
+   +  resultVO.status = null, resultVO.imageUrl =  "YOUR_IMAGE_URL";
+   +  resultVO.status = IMG_PATH, resultVO.imageUrl = null;
+   +  resultVO.status = IO_ERROR, resultVO.imageUrl = null;
+
+** Result VO class
+
+   public class UploadImageVO {
+	
+	private String status;
+	private String imageUrl;
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+    }
+
+** How to use it
+   In struts2 action, you need to define two fields: File file, and
+   String imageUrl, which get values from front page; when we submit
+   out front page form, the structure is like this:
+
+   in order to get the image suffix, we need to pass the file name to
+   the action.
+
+   <form action="XXXXAction", method="POST">
+       <input name="file" id="pic" />
+       <input name="imageUrl"  style="display:none" />
+       <input type="button" name="submit" />
+   </form>  
+
+   <script>
+   $(function(){
+       $(input[type=button]).bind('click',function(){
+           $('input[name=imageUrl]').val($('input[name=file]').val());
+           $('form').submit();
+       })
+   })
+   </script>
+
+   Then in out execute() functin or other functions in Action, We
+   just need to use UploadImageUtil.saveProductPic(pic,imageUrl) and 
+   get an Object of UploadVOClass,thus far,we upload a file and get
+   the file's name;
+
+
