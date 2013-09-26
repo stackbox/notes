@@ -7,7 +7,8 @@
    +  resultVO.status = IO_ERROR, resultVO.imageUrl = null;
 
 ** Result VO class
-
+   
+   #+BEGIN_SRC java
    public class UploadImageVO {
 	
 	private String status;
@@ -26,15 +27,16 @@
 		this.imageUrl = imageUrl;
 	}
     }
-
+   #+END_SRC
 ** How to use it
    In struts2 action, you need to define two fields: File file, and
    String imageUrl, which get values from front page; when we submit
-   out front page form, the structure is like this:
+   out front page form, the dom structure is like this:
 
-   in order to get the image suffix, we need to pass the file name to
-   the action.
+   (in order to get the image suffix, we need to pass the file name to
+   the action.)
 
+   #+BEGIN_SRC html
    <form action="XXXXAction", method="POST">
        <input name="file" id="pic" />
        <input name="imageUrl"  style="display:none" />
@@ -49,6 +51,7 @@
        })
    })
    </script>
+   #+END_SRC
 
    Then in out execute() functin or other functions in Action, We
    just need to use UploadImageUtil.saveProductPic(pic,imageUrl) and 
