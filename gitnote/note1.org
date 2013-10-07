@@ -1,7 +1,0 @@
-* git branch
-** 分支操作
-+ git branch -r 查看repo的所有分支
-+ git branch    查看repo的当前分支
-+ git checkout  本地分支名 远程分支名,其中远程分支名一般为 git branch -r 的分支名字
-
-
