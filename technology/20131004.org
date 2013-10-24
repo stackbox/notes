@@ -1,0 +1,26 @@
+#+TITLE:     20131004.org
+#+AUTHOR:    SageLyu
+#+EMAIL:     superalsrk@gmail.com
+#+DATE:      2013-10-04 
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+#+STYLE: <link rel="stylesheet" type="text/css" href="../style/style1.css">
+#+OPTIONS: ^:nil
+
+* Emacs
+
+** Emacs 分屏
+   + ~C-x 0~  关闭当前分屏
+   + ~C-x 1~  只显示当前分屏
+   + ~C-x 2~  横向分屏
+   + ~C-x 3~  竖直分屏
+   

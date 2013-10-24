@@ -1,0 +1,10 @@
+
+
+* python
+
+** with ...as ..: 语句
+
+
+* emacs
+** speedbar
+   自带的树形管理器

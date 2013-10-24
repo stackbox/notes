@@ -1,0 +1,38 @@
+#+TITLE:     20131013.org
+#+AUTHOR:    SageLyu
+#+EMAIL:     superalsrk@gmail.com
+#+DATE:      2013-10-13 
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+
+* java 架构tips
+  对于前几天封装的java web上传图像帮助类，返回错误信息时包括了一个VO类，
+  此类包含图像地址和错误信息两个字段。此种方式非常不好。
+
+  较为合理的做法是，自定义若干Exception，错误信息也做为其参数，对于帮
+  助类来讲，完全正常使用时返 上传的图片地址， 上传错误时会throw
+  exception， 只要在使用时放入 try catch 即可。
+
+
+
+* maven
+** maven add external jars
+  mvn install:install-file -Dfile=non-maven-proj.jar
+  -DgroupId=some.group -DartifactId=non-maven-proj -Dversion=1
+  -Dpackaging=jar
+
+  
+
+
+* 设计模式
+** 策略模式 （strategy pattern）
+   

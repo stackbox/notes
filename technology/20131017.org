@@ -1,0 +1,6 @@
+
+* UploadImageHelper
+** 上传图片时， Acton中，File 命名为xx， 另外一个字符串命名为xxFileName，
+   则上传的时候会自动传, 具体参考FileUtil类
+
+ 

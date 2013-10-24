@@ -1,0 +1,33 @@
+* python
+** convert all string in a list to int
+   for expample, results = ['1','2','3'], we need to covert it to
+   [1,2,3]
+   
+   results = ['1','2','3']
+
+   //solutions 
+   result = map(int, results) /* python2.x*/
+   result = list(map(int,results)) /*python3.x*/
+   result = [int(i) for in results]
+
+
+** merge two list
+   
+   list1 = [1,2,3]
+   list2 = [4,5,6]
+   if we want to merge these two lists,  we can use
+   
+   mergeList = list1 + list2
+
+   or:
+
+   mergeList=[]
+   mergeList.extend(list1)
+   mergeList.extend(list2)
+
+** convert list to string
+   a=[1,2,3,4,5]
+   
+   we can use:
+   ''.join(str(x) for x in s)
+
