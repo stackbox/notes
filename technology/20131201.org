@@ -139,3 +139,93 @@ jessionid通过这样的方式来从客户端传递到服务器端,从而来标�
 所以，我们在写web应用的时候，为了保险起见，应该在程序里的每一个跳转url
 上都使用这2个方法，来保证session的可用性
 
+* JSTL使用
+
+** pom.xml
+#+BEGIN_SRC xml
+<!-- JSTL1.2 and taglibs1.1.2 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>c</artifactId>
+			<version>1.1.2</version>
+			<type>tld</type>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>fmt</artifactId>
+			<version>1.1.2</version>
+			<type>tld</type>
+		</dependency>
+#+END_SRC
+
+** entract javax.servlet.jstl.1.2.jstl-12.jar, and copy c.dtd, fn.dtd, fmt.dtd to META-INF
+   *notice that i only use c,fmt,and standard implemention for jstl*
+   in pom.xml
+
+** add config in web.xml
+#+BEGIN_SRC xml
+	 <jsp-config>
+                <taglib>
+                        <taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
+                        <taglib-location>/META-INF/fmt.tld</taglib-location>
+                </taglib>
+                <taglib>
+                        <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+                        <taglib-location>/META-INF/c.tld</taglib-location>
+                </taglib>
+                <taglib>
+                        <taglib-uri>http://java.sun.com/jsp/jstl/functions</taglib-uri>
+                        <taglib-location>/META-INF/fn.tld</taglib-location>
+                </taglib>
+                <jsp-property-group>
+                        <url-pattern>*.jsp</url-pattern>
+                        <trim-directive-whitespaces>true</trim-directive-whitespaces>
+                </jsp-property-group>
+        </jsp-config>
+#+END_SRC
+
+** add tag prefix in jsp
+#+BEGIN_SRC jsp
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+// you can also use other taglibs by add:
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fn" prefix="fn"%>
+
+#+END_SRC
+
+*Notice that there's also a  sql.dtd interface in jstl*
+
+** Useage E.x
+   1. read property from session
+      ~<c:out value="${sessionScope.admin.adminName}"/>~
+   2. //pass
+
+** BAE jstl useage
+在bae中 ，发现在 web.xml中配置 jsp.config, 然后在jsp中引用
+#+BEGIN_SRC xml
+<%@ taglib uri="http://java.sun.com/jsp/jstl/c" prefix="c" %>
+#+END_SRC
+
+报错，大概是，bae禁止了直接读取 META-INF中的配置信息，
+删掉 web.xml中的配置，然后在jsp中引用
+#+BEGIN_SRC 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+#+END_SRC
+
+即可，注意 是 */jstl/core*, 而不是 */jstl/c*
+
+
