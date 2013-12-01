@@ -1,0 +1,17 @@
+linux 内核的 likely 和 unlikely
+
+if(likely(value)) 和 if(unlikely(value))都等价于if(value)
+
+源码：
+#define likely(x) __builtin_expect(!!(x), 1)
+#define likely(x) __builtin_expect(!!(x), 0)
+
+前者表示 x的值为真的可能性更大
+后者表示 x的值为假的可能性更大
+
+__builtin_expect函数是gcc的内建函数，提供给程序员使用，目的是将
+分支转移的信息提供给编译器，这样编译器对代码进行优化，以减少指令跳转带
+来的性能下降
+
+总之：likely和unlikely的功能就是增加cache的命中率，提好系统的执行速度
+一般而言 如果if里的statement表示一个特殊的条件，一般用unlikely

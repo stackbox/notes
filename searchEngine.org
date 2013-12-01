@@ -1,0 +1,10 @@
+* SearchEngine
+
+** Gora + mongodb? + nutch2
+
+but now gora not support mongodb,so we must choice others nosql
+
+provicers;
+
+
+

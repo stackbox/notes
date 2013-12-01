@@ -1,0 +1,27 @@
+* struts2
+** ueditor在ssh框架中无法使用上传图片
+   因为struts2对request进行了封装，而ueditor使用的确是Servlet的Request，
+   会被struts2过滤掉，需要在 ～struts.xml~ 文件中进行以下配置, 把
+   ueditor过滤掉
+   #+BEGIN_SRC 
+  	<constant name="struts.action.excludePattern" value="/ueditor/.*" />
+   #+END_SRC
+
+
+* Emacs + python 
+  
+  - C-u M-x shell 打开一个shell
+  - C-x C-b 新建一个分屏用来显示buffer
+  - C-x b 切换buffer
+  - C-x C-z 打开IPython
+
+  *检查代码 是否规范使用 pep8*
+  #+BEGIN_SRC 
+  pep8 --show-source --show-pep8 test.py
+  pep8 --first test.py
+  #+END_SRC
+  
+  *测试使用pytest*
+
+
+  

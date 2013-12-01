@@ -1,0 +1,15 @@
+* 【Qt】ubuntu下安装Qt5.1.1后Qt Creator创建项目编译出现Cannot find -lGL问题
+
+如题问题，这一问题的出现是因为缺少编译所需的库。
+
+-lGL
+需要libgl1-mesa-dev库。安装后，系统会添加文件：
+/usr/lib/i386-linux-gnu/libGL.so （链接到后者）
+/usr/lib/i386-linux-gnu/mesa/libGL.so （链接到libGL.so.1.2.0）
+而对应的困文件是libgl1-mesa-glx安装时已经安装的，因此，我们不安装上面
+的DEV库也应该可以，那就在/usr/lib/i386-linux-gnu/手动建立个到下面文件的libGL.so链接：
+/usr/lib/i386-linux-gnu/mesa/libGL.so.1.2.0
+
+Refered to:
+QT环境搭建常见的bug解决
+http://blog.sina.com.cn/s/blog_628bebe401010mdr.html

@@ -1,0 +1,19 @@
+http://stackoverflow.com/questions/11905895/mysql-remote-connection-not-as-usual
+
+mysql remote connect
+
+配置完 bind—address和 user的host之后，还是无法远程链接
+
+telnet ip port 发现无法连接端口
+
+netstat -lpn | grep 3306发现 mysqld绑定的还是 127.0.0.1:3306
+正常的应该为 0.0.0.0:3306
+
+而且service mysql stop后，进程还是有的，于是猜测这是一个后台的进程
+
+sudo service mysql stop关闭mysql后
+sudo service mysql start,
+
+于是发现就能监听外网的端口了
+
+更改完mysql.user表的信息之后，需要 *flush privileges* 来刷新

@@ -1,0 +1,44 @@
+* installations
+
+** install step by step
+#+BEGIN_SRC bash
+$ wget http://download.redis.io/releases/redis-2.6.16.tar.gz
+$ tar xzf redis-2.6.16.tar.gz
+$ cd redis-2.6.16
+$ make
+#+END_SRC
+
+** start redis server
+the binaries that are complied are availabel in *src* directory, Run
+Redis with:
+
+#+BEGIN_SRC bash
+$ src/redis-server
+#+END_SRC
+
+** use redis interact client
+you can also interact with Redis using the build-in client;
+
+#+BEGIN_SRC bash
+$ src/redis-cli
+redis> set foo bar
+OK
+redis> get foo
+"bar"
+#+END_SRC
+
+** stop redis server
+   just use command below
+#+BEGIN_SRC 
+redis-cli shutdown2
+#+END_SRC
+** add env path to specific user
++ open ~/.bashrc
+
++ add or update the code below like this
+#+BEGIN_SRC bash
+PATH=$PATH:/home/xilin/software/redis-2.6.16/src
+#+END_SRC
+
+
+
