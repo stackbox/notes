@@ -4,7 +4,7 @@ pattern当template method的数量无限趋近于一的时候的极限
 
 所以就引入了 *template method pattern*
 
-* template method pattern
+** template method pattern
 
 Defination:
 [http://zh.wikipedia.org/wiki/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95]
@@ -100,3 +100,20 @@ public static void main(String[] args) {
        chessGame.playOneGame(1); //call template method
 }
 #+END_SRC
+
+* curl 使用
+** 发送post的xml请求
+* QT相关
+自定义类时，如果继承某QObject， 在头文件中使用 Q_Object 编译会出现
+ *: public QWebView* 的情况，原因在于 尚未 run mok on it
+
+在qt creator中
+1. 右键项目
+2. qmake
+
+重新编译运行即可
+* difference between Strategy and Template pattern
+
+
+* UML类图绘制
+

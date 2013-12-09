@@ -43,3 +43,4 @@ public void fetchXmlMethod() throws IOException {
 * CDATA Adapter must not be long
 
 ** produces 是springmvc 3.1新增的
+

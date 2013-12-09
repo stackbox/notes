@@ -1,0 +1,120 @@
+* QT
+** QtWebkit创建新窗口
+[http://qt-project.org/doc/qt-4.8/qwebpage.html#createWindow]
+1. 处理 requests to navigate frame 
+#+BEGIN_SRC c++
+bool QWebPage::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest & request, 
+                       NavigationType type ) [virtual protected]
+#+END_SRC
+
+当请求用于创建新标签时， 会根据NavigationType 进行相应处理，
+如果 *frame == null* ，则会调用  createWindow()
+
+The default implementation interprets the page's linkDelegationPolicy
+and emits linkClicked accordingly or returns true to let QWebPage
+handle the navigation itself.
+
+#+BEGIN_SRC c++
+/**
+ * Webpage是QWebpage的子类，openLink， loadLink是自定义的 signals， 之后可在
+ * MainWindow中自定义slot，并connect进行相应的处理
+ */
+bool Webpage::acceptNavigationRequest(QWebFrame *frame, const QNetworkRequest &request, NavigationType type)
+{
+    if(type == 0) {
+        if(frame != mainFrame()){
+            emit openLink(request.url());
+        } else {
+            emit loadLink(request.url());
+        }
+    }
+    return QWebPage::acceptNavigationRequest(frame, request, type);
+}
+#+END_SRC
+
+*QDesktopServices::openUrl(url);* 用于调用系统浏览器打开链接
+
+2. 处理 requests to create window
+
+*QWebView * QWebView::createWindow ( QWebPage::WebWindowType type )[virtual protected]*
+
+1. Every time while QWebPage want's to create a new window of the
+   given type, the QWebView::createWindow will be called. Note that 
+   the QWebPage::createWindow *must not* be implemented.
+
+2. If the createWindow() method of the associated page is
+   reimplemented,this method is not called.
+
+3. If creation is being triggered by Javascript, you must enable 
+   QWebSettings::JavaScriptCanOpenWindows.
+
+*QWebPage * QWebPage::createWindow ( WebWindowType type )[virtualprotected]*
+
+1. If the view associated with the web page is a QWebView object,
+   then the default implementation forwards the request to
+   QWebView::createWindow, otherwise it returns a null pointer. 
+
+2. If type is WebModalDialog, the application must call
+   setWindowModality(Qt::ApplicationModal) on the new window.
+
+3. If creation is being triggered by Javascript, you must enable 
+   QWebSettings::JavaScriptCanOpenWindows.
+
+
+*enum QWebPage::WebWindowType defination:*
+QWebPage::WebBrowserWindow : the window is a regular web browserwindow
+QWebPage::WebModalDialog : the window acts as modal dialog
+
+
+
+
+
+
+* JS
+** h5.m.taobao 用到的js框架
+1. underscore.js 一个帮助类库
+
+2. backbone.js 
+
+3. sea.js
+在seajs中，所有的javascript文件都应该用模块的形式来写，并且一个文件只
+包含一个模块
+
+使用全局函数define来定义模块
+*define(id?, dependencies?, factory)*
+
+/id/ 当前模块的唯一标识，可选，若没指定，则为模块所在文件的访问路径，
+指定时必须为顶级或绝对标识
+
+/dependencies/ 当前模块所依赖的模块，是由一个模块标识组成的 *数据*，
+如果没有指定，模块加载会从 factory.toString()中解析初该数组
+
+/factory/ 模块的工厂函数，模块初始化时，会调用且仅调用一次该工厂函数。
+~factory~ 可以是函数，也可以是对象，字符串等任意值
+
+factory函数在调用时，会始终传入三个参数 *require* *exports* *module* 
+    require:: 引入其他模块，只接受 id? 作为唯一参数,  E.g:  requre('jquery')
+
+    exports:: 用来向外提供模块api， exports有两种方式
+    1) exports.foo = 'bar', exports.doSometing = functon() {}
+    2) return 一个map对象 return {foo: 'bar',doSometing:function(){}}
+
+    module:: 用来存储模块的元信息
+ 
+
+调用seajs组成的模块有两种方式：
+    1) 在引入js的时候 <script>标签加上一个特殊的字段
+    2) seajs.use("id$",function(a){a.function(), a.testdata})   
+
+ 
+4. zepto.js 
+
+** 跨域调用ajax采用jsonp形式
+XXXX。do?callback=jsonp&type=jsonp
+** 设置获取URL参数可用
+getUrlPar(url, key, value)
+setUrlPar(url, key)
+
+** javascript call方法
+
+
