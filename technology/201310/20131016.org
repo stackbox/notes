@@ -1,0 +1,9 @@
+
+* Dbus
+
+** install
+sudo apt-get install libdbus-glib-1-dev
+
+source code and demos : git clone git://anongit.freedesktop.org/git/dbus/dbus-glib 
+
+

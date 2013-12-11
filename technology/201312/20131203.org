@@ -1,0 +1,46 @@
+* 使用antrl开发领域语言
+
+* thoughtworks xstram使用
+* xml CDATA数据
+
+* java webservice发送和接受 xml请求
+** 客户端
+向服务端发送xml数据，然后获取服务端相应并进行解析
+
+
+* JSR 222--JAXB
+
+* springmvc @RequestBody @ResponseBody的使用
+
+@RequestBody接受整个string
+或者 @RequestBody接受后自动jaxb转换
+
+* struts2手动返回xml，plaintext
+** struts2 result type
+  1. 返回xml
+  2. 返回plaintext
+  3. 返回json
+
+** 配置完resul type=xml之后，编写action（不渲染，直接返回xml）
+#+BEGIN_SRC xml
+<action name="fetchxml" class="fetchXmlAction" method = "fetchXmlMethod">
+    <result name="xmlMessage" type="plaintext"></result>
+</action>
+#+END_SRC
+
+#+BEGIN_SRC java
+public void fetchXmlMethod() throws IOException {
+    HttpServletResponse response = ServletActionContext.getResponse();
+    PrintWritter out = response.getWritter();
+    response.setContentType("text/xml;charset=utf-8");
+    response.setHeader("Cache-Control","no-cache");
+    out.write("yours xml document");
+}
+#+END_SRC
+
+** curl使用，发送post请求
+
+* CDATA Adapter must not be long
+
+** produces 是springmvc 3.1新增的
+

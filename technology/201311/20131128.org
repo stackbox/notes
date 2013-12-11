@@ -1,0 +1,30 @@
+* What's the difference between listener and handler
+
+** Listener 
+A listener is an object that listens,and takes actions upon certain events,
+ 
+for example, it 'listens' for events ,such as the *observer pattern*
+
+** Handler
+A handler is an object that handlers certains things that client
+class don't want to deal with, I.e., it 'handles' events, A typical
+scenario is that I provide a handler for a specific event
+
+** othar solutions
++ Listener is associated wth *Event Source* (Ex:key board)
++ Handler is associated with an *Event* (Ex: keydown)
+
+
+
+* To-Do-List
+1. *JSR 303* bean validator, and *hiberante-validation*
+2. *JSR 330* DI interface, supported by *spring* and *google guice*
+3. *JSTL*
+4. *Joda-time-jsptags* and *joda*
+
+
+* Question
+1. proxy pattern in jsr303 implementation
+2. what's the meaning of *ProviderResolver* 's *Resolver* mean? (in
+   jsr303)
+

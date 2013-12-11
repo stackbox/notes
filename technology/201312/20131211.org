@@ -1,0 +1,19 @@
+* Emacs
+** daemon 相关配置
+在 .bashrc 中进行如下配置
+#+BEGIN_SRC bash
+
+//emacsclient时首先检查daemon是否启动，如果没有则启动
+export ALTERNATE_EDITOR=""  
+
+alias ec='emacsclient -c --frame-parameters="((width . 124)(height . 38))(top . 5)(left . 5))" -a ""' 
+alias ecn='emacsclient -t -a ""'
+export EDITOR="ec"
+#+END_SRC
+
+* linux diff
+** git diff
+
+** linux tools
+
+** emacs ediff

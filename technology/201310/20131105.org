@@ -1,0 +1,11 @@
+* java
+** 上传图片问题
+   使用FileUtil时，只要action里的File为 XXXX，再设另外一个变量
+   XXXXFileName,前台html中传这个file，使用UploadImageHelper即可，注意
+   修改form表单，需要加 ~ enctype="multipart/form-data" ~
+
+** Java方法参数太多怎么办—Part3—Builder模式
+   [http://www.importnew.com/6605.html]
+
+
+

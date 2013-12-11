@@ -1,0 +1,119 @@
+* 关于callback function
+原因在与知乎上 *vczh* 的一个回答：是设计模式里面template method
+pattern当template method的数量无限趋近于一的时候的极限
+
+所以就引入了 *template method pattern*
+
+** template method pattern
+
+Defination:
+[http://zh.wikipedia.org/wiki/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95]
+
+模板模式定义了一个算法的步骤，并且每种步骤有多种实现，在不改变当前算法
+架构的基础上，重新定义算法的某些步骤 。实现方式如下：
+1. 定义一个abstract class,并定义算法步骤（abstract method）, 定义
+   template method
+2. 继承那个abstract class,并进行算法的实现
+
+#+BEGIN_SRC java
+abstract class Game {
+ 
+     private int playersCount;
+ 
+     abstract void initializeGame();
+ 
+     abstract void makePlay(int player);
+ 
+     abstract boolean endOfGame();
+ 
+     abstract void printWinner();
+ 
+     /* A template method : */
+     final void playOneGame(int playersCount) {
+         this.playersCount = playersCount;
+         initializeGame();
+         int j = 0;
+         while (!endOfGame()){
+             makePlay(j);
+             j = (j + 1) % playersCount;
+         }
+         printWinner();
+     }
+ }
+#+END_SRC
+
+#+BEGIN_SRC java
+/**
+ *extend from the Game
+ */
+
+class Monopoly extends Game {
+ 
+     /* Implementation of necessary concrete methods */
+ 
+     void initializeGame() {
+         // ...
+     }
+ 
+     void makePlay(int player) {
+         // ...
+     }
+ 
+     boolean endOfGame() {
+         // ...
+     }
+ 
+     void printWinner() {
+         // ...
+     }
+ 
+ }
+ 
+ class Chess extends Game {
+ 
+     /* Implementation of necessary concrete methods */
+ 
+     void initializeGame() {
+         // ...
+     }
+ 
+     void makePlay(int player) {
+         // ...
+     }
+ 
+     boolean endOfGame() {
+         // ...
+     }
+ 
+     void printWinner() {
+         // ...
+     }
+ 
+ }
+#+END_SRC
+
+#+BEGIN_SRC java
+//demo
+public static void main(String[] args) {
+       Game chessGame = new Chess();
+       chessGame.initializeGame();
+       chessGame.playOneGame(1); //call template method
+}
+#+END_SRC
+
+* curl 使用
+** 发送post的xml请求
+* QT相关
+自定义类时，如果继承某QObject， 在头文件中使用 Q_Object 编译会出现
+ *: public QWebView* 的情况，原因在于 尚未 run mok on it
+
+在qt creator中
+1. 右键项目
+2. qmake
+
+重新编译运行即可
+* difference between Strategy and Template pattern
+
+
+* UML类图绘制
+

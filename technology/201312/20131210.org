@@ -1,0 +1,85 @@
+* git
+** 远程分支管理
+1. 查看远程仓库
+#+BEGIN_SRC bash
+git remote -v
+#+END_SRC
+
+2. 从远程获取最新版本到本地
+
+方式一：
+
+#+BEGIN_SRC bash
+//从远程的origin仓库的master分支下载代码到本地的origin/master
+git fetch origin master
+#+END_SRC
+
+#+BEGIN_SRC bash
+//比较本地仓库和远程仓库的区别
+git log -p master..origin/master
+#+END_SRC
+
+#+BEGIN_SRC bash
+//把远程下载的代码合并到本地仓库，远程和本地的合并
+git merge origin/master
+#+END_SRC
+
+
+方式二：
+#+BEGIN_SRC bash
+//从远程origin/master分支下载到本地的新建分支temp
+git fetch origin master:temp
+
+//比较本地master和本地temp的不同
+git diff temp
+
+//合并tmep分支到master分支
+git merge temp
+
+//删除temp分支
+git branch -d temp
+
+#+END_SRC
+
+
+3. git pull
+
+#+BEGIN_SRC bash
+git pull origin master
+#+END_SRC
+相当于git fetch & git merge， 会下载到本地然后默认合并
+
+4. git rebase
+rebase和merge都是用来合并分支的
+[http://ihower.tw/blog/archives/3843]
+
+假设合并前是这样的
+   D---E master
+     /
+A---B---C---F origin/master
+
+
+使用merge合并后(不使用--no-ff参数)
+    D--------E  
+     /          \
+A---B---C---F----G   master, origin/master
+
+
+使用rebase方式，就不会有合并的G
+A---B---C---F---D'---E'   master, origin/master
+注意 D', E' 的commit SHA和本来的D,E是不同的，算是重新砍掉然后commit了
+
+git pull 默认采用merge方式合并
+git pull --rebase 会采用rebase方式合并 
+
+
+
+5. git 处理冲突(waiting)
+
+git rebase 解决冲突[http://blog.csdn.net/wh_19910525/article/details/7554489]
+
+git merge 解决冲突[]
+
+6. 少用pull多用 fetch 和 merge
+[http://www.oschina.net/translate/git-fetch-and-merge?cmp]
+

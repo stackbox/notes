@@ -1,0 +1,21 @@
+* javascript ie兼容问题
+
+> 引js时注意不要带空格， 比如
+  <script type="text/javascript " src="test.js "></script>
+  会因为test.js后的那一个空格导致js文件无法正常引入,
+  同样,text/javascript后的空格也能导致引入失败
+
+> 使用类似var a= {}模块化结构时，里面最后一个不要有 以逗号结束，比如
+
+  var s = {
+      init : function() {
+
+      },
+
+      func1: function() {
+      
+      },
+  }
+  
+  在ie下会导致整个s模块错误
+

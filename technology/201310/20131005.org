@@ -1,0 +1,29 @@
+#+TITLE:     20131005.org
+#+AUTHOR:    SageLyu
+#+EMAIL:     superalsrk@gmail.com
+#+DATE:      2013-10-05 
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+
+* git
+** git branch 分支操作
++ git branch -r 查看repo的所有分支
++ git branch    查看repo的当前分支
++ git checkout  本地分支名/远程分支名,其中远程分支名一般为 git branch  -r 的分支名字
+
+** git tag
++ git tag -l    查看所有tag
++ git checkout tag名称,  切换到该tag版本
+
+* python
+** 
+
