@@ -1,0 +1,10 @@
+* Qt
+** acceptNavigationRequest问题
+今天在测试 处理 openLink（对应target=_blank的a标签） 和 loadLink（对应
+target=_self的a标签)的链接点击事件时， 后面的总emit前面的信号。
+
+最后发现原因在于: 这两个a标签是存在 weitao.jsp页面中，这个weitao.jsp页
+面中以iframe的形式嵌入到 index.jsp中，所以，集市target=_self,
+framae != mainFrame() 的结果也会为true
+（反之， 如果target=_parent）,frame != mainFrame()的结果就会为false
+

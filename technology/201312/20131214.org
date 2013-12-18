@@ -1,0 +1,42 @@
+* javascript
+** 实现回调函数
+
+* QT
+** window.open
+[http://www.expobrain.net/2012/03/01/open-urls-in-external-browser-by-javascript-in-webkit/]
+
+1. The user click the button and onclick() event code will be
+   executed.
+2. QWebView calls QWebPage::createWidnow() whitch returns a new
+   QWebPage instance to be used to load the URL.
+3. QWebView calls QWebPage::acceptNavigationRequeset() to proceed or
+   abort the URL loading bye the value returned by the method.
+4. If returns true it loads the URL else abort
+
+(以上只是作者的想法，关于method的顺序需要查看qt doc)
+
+** QWebPage::acceptNavigationRequest
+Webkit requests to navigate /frame/ to the resource specified by
+/request/ by means of the specified navigation /type/
+
+The default implementation interprets the page's 
+*linkDelegationPolicy* and emits linkClicked accordingly.
+
+This method returns *true* to let QWebPage hanadle the navigation
+itself.
+
+#+BEGIN_SRC c++
+Page::Page(QWidget *parent) :
+    QWebPage(parent)
+{
+    this->mainFrame()->load(QUrl("http://192.168.0.114:8080"));
+}
+
+bool Page::acceptNavigationRequest(QWebFrame *frame, const QNetworkRequest &request, NavigationType type) {
+    QDesktopServices::openUrl(QUrl("http://www.baidu.com"));
+    return true;
+}
+#+END_SRC
+
+在上面这个例子中， 启动程序时new了一个 Page， mainFrame()->load 
+触发了一个navigate to a frame的事件，

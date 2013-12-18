@@ -1,0 +1,120 @@
+* git
+** git log
+
+*git log --pretty=oneline* 在一行中显示log
+*git log -n 30 --since="1 month ago" --until=yesterday --author="schancom"*
+
+** git show
+
+*git show master^*
+
+** git ls-tree
+git中有四种对象， blob，tree，commit，tag，这四种对象都是由SHA1值来确
+定的。
+
+git ls-tree master^{tree} 显示所有的tree，并显示tree指向的blobs
+git ls-tree -r -t master^{tree} 显示所有的tree，subtree，及他们指向的blobs
+
+-t 参数用来表示 subtrees也显示出来
+
+** git cat-file
+
+git cat-file -t sha1/tag/ 显示对象的类型
+git cat-file -p sha1/tag/ 显示对象指向的东西
+
+如果对象是tree，-p参数使命令显示tree包含的blobs的列表
+如果对象是blob，-p参数使命令显示blob的具体内容
+
+** gitweb
+gitweb 是一个基于web端的图形管理界面
+#+BEGIN_SRC 
+sudo apt-get install gitweb
+
+git instaweb --httpd=webrick
+git instaweb --stop
+#+END_SRC
+
+** git diff tool
+
+git config --global.tool.diff meld
+git config --global.tool.merge meld
+
+用git difftool 代替 git diff就能使用gui界面进行diff了
+#+BEGIN_SRC 
+git difftool master..meld
+
+git difftool 1abe95a3cf..cf35cc34bd
+
+#+END_SRC
+
+** git reset
+#+BEGIN_SRC 
+git reset --hard SHA1_OF_COMMIT
+#+END_SRC
+
+** git merge
+默认merge时，如果产生冲突，需要进行resolve conflicts。
+打开冲突的文件，解决冲突的方式与svn解决冲突的方式类似。
+
+然后git commit即可
+
+** git rebase
+#+BEGIN_SRC  
+
+git rebase master
+
+//如果有冲突，会有提示
+//如果已经解决冲突，运行下面这个命令继续
+git rebase --continue
+
+//skip this patch, abandoning it forever
+git rebase --skip
+
+//give up altogether and returns to the state before the rebase
+git rebase --abort
+
+#+END_SRC
+
+#+BEGIN_SRC 
+      D---E dev
+     /
+A---B---C---F master
+
+//current branch is dev
+$ git rebase master
+
+A---B---C---F---D'---E' dev,master
+
+#+END_SRC
+
+** git slash
+If you are working on you code and you need to switch to another
+branch,for your code is partially finished,you don't want to commit
+your current state. *git stash* solve this.
+
+#+BEGIN_SRC 
+//on branch master, and edit one file
+$ git status
+
+$ git stash
+
+$ git status
+//the you can see the working directory is clean.
+
+//list all stash
+$ git stash list
+
+//display the nth stash detail,notice that zero is the first one
+$ git stash show stash@{0}
+
+//diff the stash
+$ git difftool stash@{0}
+
+//apply the stash
+$ git stash apply stash@{0}
+
+//we should resovle the conflicts after applyment
+
+#+END_SRC
+
+** git tag

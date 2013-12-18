@@ -11,9 +11,22 @@ alias ecn='emacsclient -t -a ""'
 export EDITOR="ec"
 #+END_SRC
 
+
 * linux diff
 ** git diff
 
 ** linux tools
 
 ** emacs ediff
+
+* spring
+** spring inject factory method
+* tomcat 连接池
+tomcat7 之前的版本使用的是 commons-dbcp作为连接池实现，
+但dbcp问题颇多， 因此很多人会选择第三方连接池组件，
+比如 c3p0， bonecp， druid
+
+tomcat7 引入了一个新的模块 *Tomcat jdbc pool*
+
+tomcat jdbc pool 可以在tomcat中直接使用
+也可一在独立的应用中使用

@@ -1,7 +1,10 @@
 * QT
 ** QtWebkit创建新窗口
 [http://qt-project.org/doc/qt-4.8/qwebpage.html#createWindow]
-1. 处理 requests to navigate frame 
+
+1. Webkit requests to navigate /frame/ to the resource specified by
+   /request/  means the navigation /type/
+ 
 #+BEGIN_SRC c++
 bool QWebPage::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest & request, 
                        NavigationType type ) [virtual protected]
