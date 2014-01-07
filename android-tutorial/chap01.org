@@ -1,0 +1,49 @@
+* Android chapter1 *
+
+** 四层结构
+linux kernel
+中间件：核心库和运行时
+应用程序框架： views, content provider, resource manager,
+notification manager, activity manager(活动管理器)
+
+** Activity类
+Activity的派生类需要重写onCreate方法。
+
+setContentView(R.layout.main)用于给Activity设置可以显示的视图
+
+** R文件
+R由ADT自动生成，用于管理非代码资源
+比如，图片，layout，menu
+
+** fragment
+android 3.0引入的概念，用以解决不同分辨率的动态，灵活UI设计，
+比如一个通讯程序： pad上可以左边侧边栏显示好友，右边显示聊天记录
+手机上点击好友，进入聊天页面， 这就是一种fragment的设计
+
+** res/layout/main.xml文件
+一个布局文件，用xml来描述
+
+** AndroidManifest.xml文件
+类似与javaweb的web.xml，用于向android系统描述：本程序所包括的组件，
+所实现的功能，能处理的数据，要请求的资源等等
+
+其中 ~<manifest>~ 是根节点，节点属性versionCode,versionName用来表示程
+序版本。
+
+~<manifest>~可以包含0个或1一个 ~<application>~元素，
+~<application>~元素可以包含多个activity组件
+
+* ViewGroup
+viewgroup是一个抽象类，用与承载各个view，viewgroup最直接的体现就是
+各种layouts
+
+** 帧布局 FrameLayout
+所有显示的对象都固定在屏幕的左上角，不能指定位置，但是
+允许有多个显示对象，只是后一个会覆盖在前一个之上，把前面的组件
+部分挡住或全部挡住（注意：透明的话依然保持透明，比如一个透明的imageview）
+
+** 线性布局 LinearLayout
+最常用的布局之一，也是RadioGroup,TabWidget,TableLayout,TableRow,
+ZoomControls类的父类，LinearLayout可以让它的子元素拍成一行
+（不设置方向时默认按照垂直方向排列）
+
