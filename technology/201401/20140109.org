@@ -1,0 +1,139 @@
+* git *
+** git撤销未提交的修改
+
+git checkout 会显示所有的修改
+git checkout file-name 撤销 file-name这个文件的修改
+git checkout *.java 撤销所有的java文件的修改
+git checkout . 撤销所有文件的修改
+
+
+* restfull web service *
+今天在学习rest web service的时候突然想到一个问题：
+*如果对资源的操作带有很多的参数时应该怎么办？* ， stackover上的回答有
+如下观点：
+
+1. http://stackoverflow.com/questions/5377732/can-you-build-a-truly-restful-service-that-takes-many-parameters
+
+You can see the querystring as a filter on the resource you are GETing. Here
+, your resource is the stock prices of yahoo. Doing a GET on that
+resource give you all the available data, or the most recents. The
+query string filter the prices you want. Content negociation allow you
+to change the representation, e.g. a png graph, a csv file, and so on.
+ To add a price, simply POST a representation (e.g. CSV) to the same resource.
+
+*The "restfulness" is not realy in the URL itself*, since URIs are
+obscures to client, but in the way you interact with resources
+themselves identified by their URI
+
+这个回答的重点在于， *restfullness* 设计不是指URL是rest的（因为如果url
+代表某种操作是晦涩难懂的，不服和restfullness的资源驱动的风格），所以，
+rest应该是指： 与url资源进行交互操作的某些方式。
+
+由此，对于地图数据来说，地图就是某种资源，而剩下的参数仅仅是一个
+filter，用来过滤资源的，这个filter可以通过post或get给资源。
+
+同样的道理：淘宝等开放平台的rest服务 以 XXXX.xml 或 XXXX.json是一个道
+理，此时 XXXX代表要操作的资源， xml或json只是一个过滤器
+
+2. http://stackoverflow.com/questions/1266596/what-is-the-best-way-to-design-a-http-request-when-somewhat-complex-parameters-a
+
+
+另外一种对待rest设计的思路是： 把查询当作一种资源
+
+I had a situation like this and here is how i see it:
+
+if it the query is too big to go in the uri, turn your query into
+ a resource (like a saved search). I worked on a restfull api for
+ a hotels booking system, the search query had too many params 
+(preferences, rooming list...etc) so i turned it into a resource that 
+i POST to the server. The server then replys with a uri uniquely 
+identifing the search which body is the posted query + its results:
+
+#+BEGIN_SRC
+POST http://hotels.xyz/searches
+body <search><query>...</query></search>
+Response
+
+201 Created - Location: http://hotels.xyz/searches/someID
+Body <search><query>...</query><results>...</results></search>
+
+#+END_SRC
+
+恩，这位兄台的回答是把search当成资源了， 查询的时候直接给资源 get/post
+发送body，然后服务器端解析body返回相应的结果， *但是* ，这种做法估计会
+被被另外一个问题的回答者骂死（前方高能预警～～哈哈）
+
+3. http://stackoverflow.com/questions/978061/http-get-with-request-body
+
+在这个问题中，问题下面的comment有个这么一个回答：
+The advantage is that allows easily sending XML or JSON request
+bodies, it doesn't have a length restriction and it's easier to encode
+(UTF-8)，然后距离说这种 发送 body的好处，比如长度无限制，容易国际化
+balabala。。。
+
+然后， *一堆打脸的* 来了
+
+It's 3 years later, and since then I've gotten extensive experience
+writing webservices. It's basically all I have been doing for the last
+few years. I can safely say, it is indeed a very bad idea to add a
+body to a GET request. The top two answers stand like a rock
+
+总言之就是说发送body是傻逼，之所以这么说是有原因的，有人接着回答:
+
+I agree. It can be done if you control everything from client to server
+ (but then why do you need a webservice). But if that's what someone
+ wants, they can do it, and rather than say something can't be done,
+ we can explain the pitfalls. I've run into similar problems and the
+ best answer I've come up with is to use POST, and just don't tell Roy
+ Fielding because it will make him cry.
+
+回答的人貌似是被打脸的哥们，我十分的欣赏他此时的态度，他友好的先同意了
+打脸者的观点,然后说： 如果一个人有本事控制client端到server端（发送
+body，解析body还真是个体力活，但是控制欲这么强还要web service有啥用
+嘛？），总之，就是说如果有某个开发者有这个需要，他就可以这么做，而不是
+上来就说 “绝对不能这么做”，而应该心平气和的解释一下 这么做的缺陷。
+
+最后被打脸者以自身痛苦的经验告诉我们说，看过了那么多的风景，走过了那么
+多的路，还是用post最爽了，恩，千万不要告诉 *Roy Fielding* (rest 和http
+作者)，这样做会让人家哭死的。
+
+can't speak for him, but I would doubt that he would think pure REST
+is the be all and end-all. Pick the right tool for the job. He does
+seem to care a great deal about people mis-using the term REST though
+
+最后，打脸者顺便吐槽了一下 *Roy Fielding*, 认为他 REST是网络世界的全部
+和终点（一股浓浓的中二气息～～）， 在一句 *Pick the right tool for
+the job*,两位大大和好了.
+
+*的确，对于工具的选型一定要选择最合适的，千万不能以某一两个方法为 圭臬，
+方法论害死人啊！！*
+
+
+最后，说一下为什么发送body会戳中 *Roy Fielding* 的g点：
+
+http://groups.yahoo.com/neo/groups/rest-discuss/conversations/topics/9962
+
+Yes. In other words, any HTTP request message is allowed to contain a
+message body, and thus must parse messages with that in mind. Server
+semantics for GET, however, are restricted such that a body, if any,
+ has no semantic meaning to the request. The requirements on parsing
+ are separate from the requirements on method semantics.So, yes, you
+ can send a body with GET, and no, it is never useful to do so.
+
+This is part of the layered design of HTTP/1.1 that will become clear
+ again once the spec is partitioned (work in progress).
+
+....Roy
+
+Yes, you can send a request body with GET but it should not have any
+meaning. If you give it meaning by parsing it on the server and
+changing your response based on its contents you're violating the
+HTTP/1.1 spec.
+
+/Roy Fielding/ 说，咱是可以发送没啥语义的body，但是对于参数这种，当成
+body发送出去是带有语义的，这样就必须在server端按照这种特殊的语义进行解
+析，严重不服和http1.1的设计思路，所以It's never userful to do so.
+
+(/Roy Fielding/ 你这么厉害，一堆人不听你的你知道么！！2333333)
+
+
